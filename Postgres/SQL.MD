@@ -67,4 +67,14 @@ PALAVRAS-CHAVES EM SQL: são palavras reservadas na linguagem SQL	 que todos os 
     
 ## Manipulação de Banco de dados    
     - INSERT INTO <TABELA> (<COLUNA1>, <COLUNA2>, <COLUNA3>) VALUES(<VALOR1>, <VALOR2>, <VALOR3>); colocando uma nova linha na tabela
-    - 
+    - CREATE TABLE <NOME DA TABELA> (id integer default 0); criando uma tabela com o valor default, caso o valor não seja especificado ele é declarado como o valor default. 
+    - SELECT INTO <NOVA TABELA> (<COLUNA1>, <COLUNA2>, <COLUNA3>) SELECT <COLUNA1>, <COLUNA2>, <COLUNA3> FROM <ANTIGA TABELA>;Colando os dados de uma tabela em outra com os mesmos tipos de coluna (todas as linhas)
+    - SELECT INTO <NOVA TABELA> (<COLUNA1>, <COLUNA2>, <COLUNA3>) SELECT <COLUNA1>, <COLUNA2>, <COLUNA3> FROM <ANTIGA TABELA> WHERE <COLUNA3> IN (<DADOS DA LINHA>) ;Colando os dados de uma tabela em outra com os mesmos tipos de coluna (linhas especificas)
+    - UPDATE <TABELA> SET <COLUNA1> = <COLUNA1>* 1.20 WHERE <CONDIÇÃO>;alteração de registros de uma tabela (SUBINDO UM VALOR EM 20%)
+    - DELETE FROM <TABELA> WHERE <CONDIÇÃO> ;apagar o registro da tabela
+    - DELETE FROM <TABELA1> WHERE <COLUNA1> NOT IN (SELECT MIN(<COLUNA1>) FROM <TABELA1> GROUP BY <COLUNA2>); deletar os campos repetidos
+    
+    
+    
+    
+    
