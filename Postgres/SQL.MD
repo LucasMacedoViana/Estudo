@@ -49,6 +49,9 @@ PALAVRAS-CHAVES EM SQL: são palavras reservadas na linguagem SQL	 que todos os 
     - SELECT <COLUNA> FROM <TABELA> WHERE COALESCE(<COLUNA>,<VALOR>) < (SELECT <COLUNA> FROM <TABELA> WHERE <CONDIÇÃO>) - transforma o valor null em um valor selecionado e compara com um valor de outra tabela.
 
 * Trabalhando com string
+    ~~~
     - SELECT substr(e.<coluna>, inter.POSICAO, <VALOR>) AS C FROM (SELECT <COLUNA FROM <TABELA> WHERE <COLUNA> = <CONDIÇÃO>) e, (SELECT ID AS POSICAO FROM <TABELA) inter WHERE inter.POSICAO <= LENGTH(E.<COLUNA>); pega uma string e divide letra por letra e coloca em linhas diferentes
     - SELECT (length(‘TESTE1,TESTE2,TESTE3’)-length(REPLACE(‘TESTE1,TESTE2,TESTE3’ , ‘,’ ,’’)))/LENGTH(‘,’) AS Virgula from tabela1; continuo quantas virgulas tem na string.
     - SELECT <COLUNA>, REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(‘<COLUNA>’,’<VALOR1>’), ‘<VALOR2>’),‘<VALOR3>’),‘<VALOR4>’),‘<VALOR5>’)AS RESULTDO1     ; remoção de um caracter indesejado da string
+    - 
+    ~~~
