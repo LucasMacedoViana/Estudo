@@ -66,4 +66,5 @@ PALAVRAS-CHAVES EM SQL: são palavras reservadas na linguagem SQL	 que todos os 
     - SELECT(SUM(CASE WHEN <COLUNA> = <CONDIÇÃO> THEN <COLUNA> END)/SUM(<COLUNA>))*100 AS PORCENTAGEM FROM <TABELA> ;PORCENTAGEM DE UM TOTAL.
     
 ## Manipulação de Banco de dados    
+    - INSERT INTO <TABELA> (<COLUNA1>, <COLUNA2>, <COLUNA3>) VALUES(<VALOR1>, <VALOR2>, <VALOR3>); colocando uma nova linha na tabela
     - 
