@@ -51,6 +51,19 @@ PALAVRAS-CHAVES EM SQL: são palavras reservadas na linguagem SQL	 que todos os 
 ## Trabalhando com string
     - SELECT substr(e.<coluna>, inter.POSICAO, <VALOR>) AS C FROM (SELECT <COLUNA FROM <TABELA> WHERE <COLUNA> = <CONDIÇÃO>) e, (SELECT ID AS POSICAO FROM <TABELA) inter WHERE inter.POSICAO <= LENGTH(E.<COLUNA>); pega uma string e divide letra por letra e coloca em linhas diferentes
     - SELECT (length(‘TESTE1,TESTE2,TESTE3’)-length(REPLACE(‘TESTE1,TESTE2,TESTE3’ , ‘,’ ,’’)))/LENGTH(‘,’) AS Virgula from tabela1; continuo quantas virgulas tem na string.
-    - SELECT <COLUNA>, REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(‘<COLUNA>’,’<VALOR1>’), ‘<VALOR2>’),‘<VALOR3>’),‘<VALOR4>’),‘<VALOR5>’)AS RESULTDO1     ; remoção de um caracter indesejado da string
-    - SELECT <COLUNA>, GROUP_CONCAT(<COLUNA> ORDER BY <COLUNA> SEPARATOR ' , ') AS <NOME DA NOVA COLUNA> FROM <TABELA> GROUP BY <COLUNA>;
+    - SELECT <COLUNA>, REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(‘<COLUNA>’,’<VALOR1>’), ‘<VALOR2>’),‘<VALOR3>’),‘<VALOR4>’),‘<VALOR5>’)AS RESULTDO1 ; remoção de um caracter indesejado da string
+    - SELECT <COLUNA>, GROUP_CONCAT(<COLUNA> ORDER BY <COLUNA> SEPARATOR ' , ') AS <NOME DA NOVA COLUNA> FROM <TABELA> GROUP BY <COLUNA>; agrupando os valores com que tem o mesmo valor em outra coluna.
    
+## Trabalhando com números 
+    - SELECT avg(<coluna>) AS <nome da coluna> FROM TABELA; calculando a media da tabela.
+    - SELECT <coluna> avg(<coluna>) AS <nome da coluna> FROM TABELA group by <coluna>; calculando a media da tabela em relação a outra coluna.
+    - SELECT min(<coluna>)AS <nome da coluna> , max(<coluna>) AS <nome da coluna> from <tabela>;achando o valor maximo e minimo de cada tabela.
+    - SELECT sum(<COLUNA>) FROM <TABELA>; somando os valores de uma coluna.
+    - SELECT COUNT(*) FROM <TABELA>; contar as linhas de uma tabela
+    - SELECT <COLUNA>, COUNT(*) FROM <TABELA> GROUP BY <COLUNA>; contando quantas linhas de cada tipo da coluna.
+    - SELECT <COLUNA>, <COLUNA>, SUM(<COLUNA>) OVER (ORDER BY <COLUNA>, <COLUNA>) AS <NOME DA NOVA COLUNA> FROM <TABELA> ORDER BY 2;somando em pilha
+    - SELECT <COLUNA> FROM (SELECT <COLUNA>, DENSE_RANK()OVER(ORDER BY MODA DESC) AS RANK FROM (SELECT <COLUNA>, COUNT(8) AS MODA FROM <TABELA> WHERE <COLUNA> = <CONDIÇÃO> GROUP BY <COLUNA>) X) Y WHERE RANCK = 1 ;moda (numero que mais se repete)
+    - SELECT(SUM(CASE WHEN <COLUNA> = <CONDIÇÃO> THEN <COLUNA> END)/SUM(<COLUNA>))*100 AS PORCENTAGEM FROM <TABELA> ;PORCENTAGEM DE UM TOTAL.
+    
+## Manipulação de Banco de dados    
+    - 
