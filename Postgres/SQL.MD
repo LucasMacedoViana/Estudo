@@ -74,7 +74,20 @@ PALAVRAS-CHAVES EM SQL: são palavras reservadas na linguagem SQL	 que todos os 
     - DELETE FROM <TABELA> WHERE <CONDIÇÃO> ;apagar o registro da tabela
     - DELETE FROM <TABELA1> WHERE <COLUNA1> NOT IN (SELECT MIN(<COLUNA1>) FROM <TABELA1> GROUP BY <COLUNA2>); deletar os campos repetidos
     
-    
+## Chave Primaria
+    - É o que faz a identificação de forma exclusiva de cada linha da tabela.
+    - CREATE TABLE <NOME DA TABELA1> (<COLUNA1> INT PRIMARY KEY, <COLUNA2> VARCHAR(255),<COLUNA3> DATE NOT NULL, <COLUNA4> DATE NO NULL); CRIANDO UMA TABELA COM CHAVE PRIMARIA
+    - CREATE TABLE <NOME DA TABELA1> (<COLUNA1> INT, <COLUNA2> VARCHAR(255),<COLUNA3> DATE NOT NULL, <COLUNA4> DATE NO NULL, CONSTRAIN pk_id primary key(<coluna1>);
+    - ALTER TABLE <TABELA1> ADD CONSTRAINT PK_<NOME DA CHAVE> PRIMAREY KEY (<COLUNA1>); adicionando uma primary key depois que a tabela ja foi criada
+    - ALTER TABLE <TABELA1> DROP PRIMAREY KEY (<COLUNA1>); REMOVENDO UMA CHAVE PRIMARIA
+
+## FOREING KEY
+    - é uma coluna que impoe um link entre duas tabelas.
+    - exemplo:
+    - CREATE TABLE projetos( id INT AUTO_INCREMENT PRIMARY_KEY, nome_projeto VARCHAR(255), começo DATE NOT NULL, termino NOT NULL);
+    - CREATE TABLE marcos_projeto(marco_id INT AUTO_INCREMENT PRIMARY KEY, id INT, marco_nome VARCHAR(100),CONSTRAINT fk_projeto FOREIGN KEY(id) REFERENCES projetos(id));
+    - ALTER TABLE marcos_projeto DROP CONSTRAINT fk_projeto; para remover a foreing key
+    - ALTER TABLE marcos_projeto ADD CONSTRAINT fk_projeto FOREIGN KEY(id) REFERENCES projetos(is); caso a chave não tenha sido criada inicialmente
     
     
     
