@@ -88,6 +88,15 @@ PALAVRAS-CHAVES EM SQL: são palavras reservadas na linguagem SQL	 que todos os 
     - CREATE TABLE marcos_projeto(marco_id INT AUTO_INCREMENT PRIMARY KEY, id INT, marco_nome VARCHAR(100),CONSTRAINT fk_projeto FOREIGN KEY(id) REFERENCES projetos(id));
     - ALTER TABLE marcos_projeto DROP CONSTRAINT fk_projeto; para remover a foreing key
     - ALTER TABLE marcos_projeto ADD CONSTRAINT fk_projeto FOREIGN KEY(id) REFERENCES projetos(is); caso a chave não tenha sido criada inicialmente
+
+## Criaçao de Bando de dados
+    - CREATE DATABASE <NOME DA BASE> ; CRIANDO O DB
+    - DROP DATABASE <NOME DA BASE>; APAGANDO O DB
+    - CREATE DATABASE <NOVO DB> TEMPLATE <TEMPLATE DE DB>; CRIANDO UM DP BASEADO EM UM TEMPLATE
+    
+ ## SCHEMA
+    - CREATE SCHEMA <NOME DO SCHEMA>; CRIANDO O SCHEMA
+    - 
     
     
     
