@@ -3,14 +3,14 @@ import 'package:alura/data/task_dao.dart';
 import 'package:alura/data/task_inherited.dart';
 import 'package:flutter/material.dart';
 
-class AccessScreen extends StatefulWidget {
-  const AccessScreen({Key? key}) : super(key: key);
+class RedefinirScreen extends StatefulWidget {
+  const RedefinirScreen({Key? key}) : super(key: key);
 
   @override
-  State<AccessScreen> createState() => _AccessScreenState();
+  State<RedefinirScreen> createState() => _RedefinirScreenState();
 }
 
-class _AccessScreenState extends State<AccessScreen> {
+class _RedefinirScreenState extends State<RedefinirScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController difficultyController = TextEditingController();
   TextEditingController imageController = TextEditingController();
@@ -58,20 +58,20 @@ class _AccessScreenState extends State<AccessScreen> {
               child: Column(
                 children: const [
                   Text(
-                    "Acesso",
+                    "Redefinir Senha",
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontSize: 36,
+                      fontSize: 22,
                       fontWeight: FontWeight.w600,
                     ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Entre com suas credencias abaixo.",
+                    "Informe o email cadastrado e enviaremos instruções para recuperar a senha por lá.",
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                     ),
                     textAlign: TextAlign.center,
@@ -94,43 +94,12 @@ class _AccessScreenState extends State<AccessScreen> {
                 ],
               ),
             ),
-            Material(
-              child: Column(
-                children: [
-                  SizedBox(height: 20,),
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      label: Text("Senha"),
-                      border: OutlineInputBorder(),
-                    ),
-                  )
-                ],
-              ),
-            ),
             Container(
-              margin: EdgeInsets.only(top: 15),
-              child: RaisedButton(
-                child: const Text(
-                  "Entrar",
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: Color(0xff5AD7DF),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                onPressed: () {},
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 80),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 90),
+              margin: EdgeInsets.only(top: 50),
               height: 36,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Esqueceu a senha?"),
                   SizedBox(width: 10),
                   InkWell(
                     onTap: () {},
@@ -143,16 +112,16 @@ class _AccessScreenState extends State<AccessScreen> {
                         ),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Row(
-                        children: const [
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 200,),
                           Text(
                             "Redefinir",
                             style: TextStyle(
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(width: 5),
-                          Icon(Icons.arrow_right, size: 16),
                         ],
                       ),
                     ),

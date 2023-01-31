@@ -12,7 +12,7 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
+          child: SingleChildScrollView(
         padding: EdgeInsets.all(40),
         child: Column(
           children: <Widget>[
@@ -107,7 +107,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       child: Row(
                         children: const [
                           Text(
-                            "Clique aqui",
+                            "Login",
                             style: TextStyle(
                               color: Colors.black,
                             ),

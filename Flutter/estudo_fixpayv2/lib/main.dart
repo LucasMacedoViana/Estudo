@@ -1,5 +1,6 @@
 import 'package:alura/data/task_inherited.dart';
 import 'package:alura/screens/form_screen.dart';
+import 'package:alura/screens/redefinir_senha.dart';
 import 'package:alura/screens/initail_screen.dart';
 import 'package:flutter/material.dart';
 
