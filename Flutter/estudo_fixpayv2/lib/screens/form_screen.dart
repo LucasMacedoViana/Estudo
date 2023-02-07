@@ -82,7 +82,9 @@ class _AccessScreenState extends State<AccessScreen> {
             Material(
               child: Column(
                 children: [
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
                   TextField(
                     keyboardType: TextInputType.emailAddress,
@@ -97,7 +99,9 @@ class _AccessScreenState extends State<AccessScreen> {
             Material(
               child: Column(
                 children: [
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
                   TextField(
                     obscureText: true,
@@ -121,50 +125,61 @@ class _AccessScreenState extends State<AccessScreen> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 onPressed: () {
-                  showModalBottomSheet<void>(context: context,builder: (BuildContext context) {
-                    return Container(
-                      height: 400,
-                      color: Colors.white,
-                      child: Container(
-                        margin: EdgeInsets.all(40),
-
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Text('Termos de Uso',style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600,),),
-                            const Text('Por favor, leia os nossos termos e aceite as condições para continuar.',style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400,),),
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                padding:
-                                EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 0.5,
-                                  ),
-                                  borderRadius: BorderRadius.circular(4),
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 400,
+                        color: Colors.white,
+                        child: Container(
+                          margin: EdgeInsets.all(40),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const Text(
+                                'Termos de Uso',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                child : Center(
-                                  child: (
-                                    Text(
+                              ),
+                              const Text(
+                                'Por favor, leia os nossos termos e aceite as condições para continuar.',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 16),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 0.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Center(
+                                    child: (Text(
                                       "Confirmar",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
                                       ),
-                                    )
+                                    )),
+                                  ),
                                 ),
-                                ),
-
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }, );
+                      );
+                    },
+                  );
                 },
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 80),
               ),
