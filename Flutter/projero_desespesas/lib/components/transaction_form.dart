@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String,double) onSubmit;
+  final void Function(String, double) onSubmit;
 
   TransactionForm(this.onSubmit);
 
@@ -15,14 +15,14 @@ class _TransactionFormState extends State<TransactionForm> {
   final valueController = TextEditingController();
 
   _submitForm() {
-    final title =titleController.text;
+    final title = titleController.text;
     final value = double.tryParse(valueController.text) ?? 0.0;
 
-    if(title.isEmpty || value <=0){
+    if (title.isEmpty || value <= 0) {
       return;
     }
 
-    widget.onSubmit(title,value);
+    widget.onSubmit(title, value);
   }
 
   @override
@@ -48,10 +48,24 @@ class _TransactionFormState extends State<TransactionForm> {
                 labelText: 'Valor (R\$)',
               ),
             ),
+            Container(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Text('Nenhuma data selecionada'),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Selecionar Data',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ))
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
+                ElevatedButton(
                   onPressed: _submitForm,
                   child: Text('Nova Transação'),
                 ),
