@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projero_desespesas/components/chart.dart';
 import 'package:projero_desespesas/components/transaction_form.dart';
 import 'dart:math';
+import 'dart:io';
 import 'components/chart.dart';
 import 'components/transaction_list.dart';
 import 'models/transaction.dart';
@@ -73,14 +75,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLandscap = MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    bool isLandscap = mediaQuery.orientation == Orientation.landscape;
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
         style: TextStyle(
             color: Colors.white,
             fontFamily: 'OpenSans',
-            fontSize: 20 * MediaQuery.of(context).textScaleFactor,
+            fontSize: 20 * mediaQuery.textScaleFactor,
             fontWeight: FontWeight.bold),
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -106,41 +109,43 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    final availableHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+    final availableHeight = mediaQuery.size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
 
-    return Scaffold(
-      appBar: appBar ,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            // if(isLandscap) Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text('Exibir grafico'),
-            //     Switch(value: _showChart, onChanged: (value){
-            //       setState(() {
-            //         _showChart = value;
-            //       });
-            //
-            //     }),
-            //   ],
-            // ),
-            if(_showChart || !isLandscap) Container(
-              height: availableHeight * (isLandscap?0.7:0.30),
-              child: Chart(_recentTransactions),
+    final bodyPage = SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          // if(isLandscap) Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text('Exibir grafico'),
+          //     Switch.adaptive(value: _showChart, onChanged: (value){
+          //       setState(() {
+          //         _showChart = value;
+          //       });
+          //
+          //     }),
+          //   ],
+          // ),
+          if(_showChart || !isLandscap) Container(
+            height: availableHeight * (isLandscap?0.7:0.30),
+            child: Chart(_recentTransactions),
+          ),
+          if(!_showChart || !isLandscap)Container(
+            height: availableHeight * (isLandscap?1:0.7),
+            child: TransactionList(
+              _transactions,
+              _removeTransaction,
             ),
-             if(!_showChart || !isLandscap)Container(
-              height: availableHeight * (isLandscap?1:0.7),
-              child: TransactionList(
-                _transactions,
-                _removeTransaction,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
+    );
+
+    return Platform.isIOS ? CupertinoPageScaffold(child: bodyPage,) : Scaffold(
+      appBar: appBar ,
+      body: bodyPage,
+      floatingActionButton: Platform.isIOS ? Container() : FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: Icon(
           Icons.add,
