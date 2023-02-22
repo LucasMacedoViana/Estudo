@@ -21,6 +21,20 @@ class ProductsOverviewPage extends StatefulWidget {
 
 class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   bool _showFavoriteOnly = false;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductList>(
+      context,
+      listen: false,
+    ).loadProducts().then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,19 +66,19 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
           ),
           Consumer<Cart>(
             child: IconButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.of(context).pushNamed(AppRoutes.CART);
               },
               icon: Icon(Icons.shopping_cart),
-            ) ,
-            builder:(ctx, cart, child) => Badge1(
-              value:cart.itemsCount.toString(),
+            ),
+            builder: (ctx, cart, child) => Badge1(
+              value: cart.itemsCount.toString(),
               child: child!,
             ),
           )
         ],
       ),
-      body: ProductGrid(_showFavoriteOnly),
+      body: _isLoading ? Center(child: CircularProgressIndicator(),) :ProductGrid(_showFavoriteOnly),
       drawer: AppDrawer(),
     );
   }
