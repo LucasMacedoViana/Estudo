@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shop/models/product.dart';
 
-import '../models/product.dart';
-
-class ProductDatailPage extends StatelessWidget {
-  const ProductDatailPage({
-    Key? key,
-  }) : super(key: key);
+class ProductDetailPage extends StatelessWidget {
+  const ProductDetailPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final Product product =
-        ModalRoute.of(context)?.settings.arguments as Product;
+        ModalRoute.of(context)!.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(
         title: Text(product.name),
@@ -18,7 +15,7 @@ class ProductDatailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 300,
               width: double.infinity,
               child: Image.network(
@@ -26,27 +23,23 @@ class ProductDatailPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Text(
               'R\$ ${product.price}',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 20,
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: Text(
                 product.description,
                 textAlign: TextAlign.center,
               ),
-            ),
+            )
           ],
         ),
       ),

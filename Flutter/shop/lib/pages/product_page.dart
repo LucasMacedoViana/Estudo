@@ -9,7 +9,10 @@ class ProductsPage extends StatelessWidget {
   const ProductsPage({Key? key}) : super(key: key);
 
   Future<void> _refreshProducts(BuildContext context) {
-    return Provider.of<ProductList>(context, listen: false).loadProducts();
+    return Provider.of<ProductList>(
+      context,
+      listen: false,
+    ).loadProducts();
   }
 
   @override
@@ -17,29 +20,27 @@ class ProductsPage extends StatelessWidget {
     final ProductList products = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gerenciar Produtos'),
+        title: const Text('Gerenciar Produtos'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.add),
             onPressed: () {
               Navigator.of(context).pushNamed(AppRoutes.PRODUCT_FORM);
             },
-            icon: Icon(Icons.add),
           )
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: RefreshIndicator(
         onRefresh: () => _refreshProducts(context),
         child: Padding(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: ListView.builder(
             itemCount: products.itemsCount,
             itemBuilder: (ctx, i) => Column(
               children: [
-                ProductItem(
-                  products.item[i],
-                ),
-                Divider(),
+                ProductItem(products.items[i]),
+                const Divider(),
               ],
             ),
           ),

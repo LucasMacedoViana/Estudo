@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/components/cart_item.dart';
+import 'package:shop/models/cart.dart';
 import 'package:shop/models/order_list.dart';
-
-import '../models/cart.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -15,12 +14,12 @@ class CartPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carrinho'),
+        title: const Text('Carrinho'),
       ),
       body: Column(
         children: [
           Card(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               horizontal: 15,
               vertical: 25,
             ),
@@ -29,26 +28,23 @@ class CartPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Total',
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                   Chip(
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     label: Text(
                       'R\$${cart.totalAmount.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        color:
-                            Theme.of(context).primaryTextTheme.headline6?.color,
+                      style: const TextStyle(
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   CartButton(cart: cart),
                 ],
               ),
@@ -57,9 +53,7 @@ class CartPage extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: items.length,
-              itemBuilder: (ctx, i) => CartItemWidget(
-                items[i],
-              ),
+              itemBuilder: (ctx, i) => CartItemWidget(items[i]),
             ),
           ),
         ],
@@ -70,9 +64,9 @@ class CartPage extends StatelessWidget {
 
 class CartButton extends StatefulWidget {
   const CartButton({
-    super.key,
+    Key? key,
     required this.cart,
-  });
+  }) : super(key: key);
 
   final Cart cart;
 
@@ -85,25 +79,23 @@ class _CartButtonState extends State<CartButton> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading ? CircularProgressIndicator() : TextButton(
-      onPressed: widget.cart.itemsCount == 0
-          ? null
-          : () async {
-              setState(() => _isLoading = true);
-              await Provider.of<OrderList>(
-                context,
-                listen: false,
-              ).addOrder(widget.cart);
+    return _isLoading
+        ? const CircularProgressIndicator()
+        : TextButton(
+            onPressed: widget.cart.itemsCount == 0
+                ? null
+                : () async {
+                    setState(() => _isLoading = true);
 
-              widget.cart.clear();
-              setState(() => _isLoading = false);
-            },
-      child: Text('COMPRAR'),
-      style: TextButton.styleFrom(
-        textStyle: TextStyle(
-          color: Theme.of(context).primaryColor,
-        ),
-      ),
-    );
+                    await Provider.of<OrderList>(
+                      context,
+                      listen: false,
+                    ).addOrder(widget.cart);
+
+                    widget.cart.clear();
+                    setState(() => _isLoading = false);
+                  },
+            child: const Text('COMPRAR'),
+          );
   }
 }

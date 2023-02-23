@@ -1,4 +1,4 @@
-class CartItem{
+class CartItem {
   final String id;
   final String productId;
   final String name;
@@ -11,5 +11,5 @@ class CartItem{
     required this.name,
     required this.quantity,
     required this.price,
-});
+  });
 }

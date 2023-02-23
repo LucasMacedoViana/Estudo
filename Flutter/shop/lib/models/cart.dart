@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shop/models/cart_item.dart';
 import 'package:shop/models/product.dart';
 
@@ -11,7 +11,7 @@ class Cart with ChangeNotifier {
   }
 
   int get itemsCount {
-    return _items.length;
+    return items.length;
   }
 
   double get totalAmount {
@@ -26,7 +26,7 @@ class Cart with ChangeNotifier {
     if (_items.containsKey(product.id)) {
       _items.update(
         product.id,
-        (existingItem) => CartItem(
+            (existingItem) => CartItem(
           id: existingItem.id,
           productId: existingItem.productId,
           name: existingItem.name,
@@ -37,7 +37,7 @@ class Cart with ChangeNotifier {
     } else {
       _items.putIfAbsent(
         product.id,
-        () => CartItem(
+            () => CartItem(
           id: Random().nextDouble().toString(),
           productId: product.id,
           name: product.name,
@@ -54,17 +54,17 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeSingleItem(String productid) {
-    if (!_items.containsKey(productid)) {
+  void removeSingleItem(String productId) {
+    if (!_items.containsKey(productId)) {
       return;
     }
 
-    if (_items[productid]?.quantity == 1) {
-      _items.remove(productid);
+    if (_items[productId]?.quantity == 1) {
+      _items.remove(productId);
     } else {
       _items.update(
-        productid,
-        (existingItem) => CartItem(
+        productId,
+            (existingItem) => CartItem(
           id: existingItem.id,
           productId: existingItem.productId,
           name: existingItem.name,
