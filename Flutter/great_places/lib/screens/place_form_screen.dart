@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:great_places/providers/greate_places.dart';
 import 'package:great_places/widget/image_input.dart';
+import 'package:great_places/widget/location_input.dart';
 import 'package:provider/provider.dart';
 
 class PlaceFormScreen extends StatefulWidget {
@@ -21,13 +22,13 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   }
 
   void _submitForm() {
-    if(_titleController.text.isEmpty || _pickedImage == null){
+    if (_titleController.text.isEmpty || _pickedImage == null) {
       return;
     }
-    Provider.of<GreatPlaces>(context, listen: false).addPlace(_titleController.text, _pickedImage!);
-    
-    Navigator.of(context).pop();
+    Provider.of<GreatPlaces>(context, listen: false)
+        .addPlace(_titleController.text, _pickedImage!);
 
+    Navigator.of(context).pop();
   }
 
   @override
@@ -38,10 +39,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
           'Novo Lugar',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Column(
         children: [
@@ -55,10 +53,10 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                       controller: _titleController,
                       decoration: InputDecoration(labelText: 'Título'),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     ImageInput(this._selectImage),
+                    const SizedBox(height: 10),
+                    LocationInput(),
                   ],
                 ),
               ),
@@ -67,11 +65,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                primary: Theme
-                    .of(context)
-                    .colorScheme
-                    .secondary),
-
+                primary: Theme.of(context).colorScheme.secondary),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

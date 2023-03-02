@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       create: (ctx) => GreatPlaces(),
       child: MaterialApp(
         title: 'Great Places',
+        debugShowCheckedModeBanner: false,
         theme: tema.copyWith(
           useMaterial3: true,
           colorScheme: tema.colorScheme.copyWith(
