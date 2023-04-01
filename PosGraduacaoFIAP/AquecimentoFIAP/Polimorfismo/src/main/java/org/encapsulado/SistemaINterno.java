@@ -2,7 +2,7 @@ package org.encapsulado;
 
 public class SistemaINterno {
     private  int senha = 1234;
-    public void autentica(FuncionarioAutenticavel fa){
+    public void autentica(Autenticavel fa){
         boolean autenticou = fa.autentica(this.senha);
         if(autenticou){
             System.out.println("POde entrar no sistema!");
