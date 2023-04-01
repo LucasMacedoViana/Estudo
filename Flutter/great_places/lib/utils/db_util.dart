@@ -1,4 +1,3 @@
-import 'package:flutter/animation.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sql.dart';
@@ -11,7 +10,7 @@ class DbUtil{
       path.join(dbPath,'places.db'),
       onCreate: (db, version){
         return db.execute(
-          'CREATE TABLE places(id TEXT PRIMARY KEY, titulo TEXT, image TEXT)'
+          'CREATE TABLE places(id TEXT PRIMARY KEY, titulo TEXT, image TEXT, latitude REAL, longitude REAL, address TEXT)'
         );
       },
       version: 1,

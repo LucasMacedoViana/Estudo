@@ -49,12 +49,13 @@ class _MapsScreenState extends State<MapsScreen> {
                 ),
                 zoom: 13),
             onTap: widget.isReadOnly ? null : _selectPosition,
-            markers: _pickedPosition == null
+            markers: (_pickedPosition == null && !widget.isReadOnly)
                 ? {}
                 : {
                     Marker(
                       markerId: MarkerId('m1'),
-                      position: _pickedPosition!,
+                      position: _pickedPosition ?? widget.initialLocation.toLatLng(),
+                          
                     )
                   }));
   }

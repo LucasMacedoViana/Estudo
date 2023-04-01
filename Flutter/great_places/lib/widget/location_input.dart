@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:great_places/screens/map_screen.dart';
@@ -8,7 +6,9 @@ import 'package:location/location.dart';
 
 class LocationInput extends StatefulWidget {
   final Function onSelectPosition;
-  const LocationInput({Key? key,required this.onSelectPosition}) : super(key: key);
+
+  const LocationInput({Key? key, required this.onSelectPosition})
+      : super(key: key);
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -17,15 +17,26 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   String? _previewImgeUrl;
 
-  Future<void> _getCurrentUserLocation() async {
-    final locData = await Location().getLocation();
-
+  void _showPreviwe(double lat, double lng) {
     final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(
-        latitude: locData.latitude!, longitude: locData.longitude!);
+        latitude: lat, longitude: lng);
 
     setState(() {
       _previewImgeUrl = staticMapImageUrl;
     });
+  }
+
+  Future<void> _getCurrentUserLocation() async {
+    try{
+    final locData = await Location().getLocation();
+    _showPreviwe(locData.latitude!, locData.longitude!);
+    widget.onSelectPosition(LatLng(
+      locData.latitude!,
+      locData.longitude!,
+    ));
+    }catch (e){
+      return;
+    }
   }
 
   Future<void> _selectOnMap() async {
@@ -36,7 +47,9 @@ class _LocationInputState extends State<LocationInput> {
           builder: (ctx) => MapsScreen(),
         ));
     if (selectedPosition == null) return;
+    _showPreviwe(selectedPosition.latitude, selectedPosition.longitude);
     widget.onSelectPosition(selectedPosition);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +99,3 @@ class _LocationInputState extends State<LocationInput> {
     );
   }
 }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }}
