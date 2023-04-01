@@ -54,8 +54,8 @@ class _MapsScreenState extends State<MapsScreen> {
                 : {
                     Marker(
                       markerId: MarkerId('m1'),
-                      position: _pickedPosition ?? widget.initialLocation.toLatLng(),
-                          
+                      position:
+                          _pickedPosition ?? widget.initialLocation.toLatLng(),
                     )
                   }));
   }
