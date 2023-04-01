@@ -1,8 +1,14 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:great_places/screens/map_screen.dart';
+import 'package:great_places/utils/location_util.dart';
 import 'package:location/location.dart';
 
 class LocationInput extends StatefulWidget {
-  const LocationInput({Key? key}) : super(key: key);
+  final Function onSelectPosition;
+  const LocationInput({Key? key,required this.onSelectPosition}) : super(key: key);
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -11,11 +17,26 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   String? _previewImgeUrl;
 
-  Future<void> _getCurrentUserLocation() async{
+  Future<void> _getCurrentUserLocation() async {
     final locData = await Location().getLocation();
-    print(locData.latitude);
-    print(locData.longitude);
+
+    final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(
+        latitude: locData.latitude!, longitude: locData.longitude!);
+
+    setState(() {
+      _previewImgeUrl = staticMapImageUrl;
+    });
   }
+
+  Future<void> _selectOnMap() async {
+    final LatLng selectedPosition = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          fullscreenDialog: true,
+          builder: (ctx) => MapsScreen(),
+        ));
+    if (selectedPosition == null) return;
+    widget.onSelectPosition(selectedPosition);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +72,7 @@ class _LocationInputState extends State<LocationInput> {
                   ],
                 )),
             TextButton(
-              onPressed: () {},
+              onPressed: _selectOnMap,
               child: Row(
                 children: [
                   Icon(Icons.map),
@@ -65,3 +86,9 @@ class _LocationInputState extends State<LocationInput> {
     );
   }
 }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }}
