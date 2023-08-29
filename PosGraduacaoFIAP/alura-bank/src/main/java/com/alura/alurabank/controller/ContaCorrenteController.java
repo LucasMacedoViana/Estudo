@@ -1,23 +1,40 @@
 package com.alura.alurabank.controller;
 
+import com.alura.alurabank.controller.form.ContaCorrenteForm;
+import com.alura.alurabank.controller.form.CorrentistaForm;
 import com.alura.alurabank.dominio.ContaCorrente;
 import com.alura.alurabank.dominio.Correntista;
 import com.alura.alurabank.dominio.MovimentacaoDeConta;
 import com.alura.alurabank.repositorio.RepositorioContaCorrente;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping ("/contas")
-public class ContaCOrrenteController {
+public class ContaCorrenteController {
 
     @Autowired
     private RepositorioContaCorrente repositorioContaCorrente;
+
+    @Autowired
+    private Validator validator;
+
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping
     public String consultarSaldo(
@@ -30,7 +47,14 @@ public class ContaCOrrenteController {
     }
 
     @PostMapping
-    public ResponseEntity<ContaCorrente> criarNovaConta(@RequestBody Correntista correntista){
+    public ResponseEntity criarNovaConta(@RequestBody CorrentistaForm correntistaForm){
+        Map<Path, String> ViolacoesToMap = Validar(correntistaForm);
+
+        if(!ViolacoesToMap.isEmpty()){
+            return ResponseEntity.badRequest().body(ViolacoesToMap);
+        }
+
+        Correntista correntista = correntistaForm.toCorrentista();
         String banco = "333";
         String agencia = "4444";
         String numeroConta = Integer.toString(new Random().nextInt(Integer.MAX_VALUE));
@@ -38,16 +62,31 @@ public class ContaCOrrenteController {
         repositorioContaCorrente.save(conta);
         return ResponseEntity.status(HttpStatus.CREATED).body(conta);
     }
+
+    private <T> Map<Path, String> Validar(T form) {
+        Set<ConstraintViolation<T>> violacoes =
+                validator.validate(form);
+
+        Map<Path, String> ViolacoesToMap = violacoes.stream()
+                .collect(Collectors.toMap(violacao -> violacao.getPropertyPath(), violacao -> violacao.getMessage()));
+        return ViolacoesToMap;
+    }
+
     @DeleteMapping
-    public String feharConta(@RequestBody ContaCorrente conta){
-        Optional<ContaCorrente> opContaCorrente = repositorioContaCorrente.findBy(conta.getBanco(), conta.getAgencia(), conta.getNumeroConta());
+    public ResponseEntity feharConta(@RequestBody ContaCorrenteForm contaForm){
+        Map<Path, String> ViolacoesToMap = Validar(contaForm);
+
+        if(!ViolacoesToMap.isEmpty()){
+            return ResponseEntity.badRequest().body(ViolacoesToMap);
+        }
+        Optional<ContaCorrente> opContaCorrente = repositorioContaCorrente.findBy(contaForm.getBanco(), contaForm.getAgencia(), contaForm.getNumeroConta());
         if(opContaCorrente.isEmpty()){
-            return "Conta inválida";
+            return ResponseEntity.badRequest().body("Conta inválida");
         }
         else {
-            conta = opContaCorrente.get();
+            ContaCorrente conta = modelMapper.map(contaForm, ContaCorrente.class);
             repositorioContaCorrente.fechar(conta);
-            return "Conta fechada";
+            return ResponseEntity.ok("Conta fechada");
         }
     }
 

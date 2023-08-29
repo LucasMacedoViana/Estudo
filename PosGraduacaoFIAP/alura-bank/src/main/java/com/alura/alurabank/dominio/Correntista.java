@@ -11,8 +11,10 @@ public class Correntista {
     private String cpf;
 
     private LocalDate dataDeEntrada = LocalDate.now();
-    public LocalDate getDataDeEntrada() {
-        return dataDeEntrada;
+
+    public Correntista(String cpf, String nome) {
+        this.cpf = cpf;
+        this.nome = nome;
     }
 
 }
